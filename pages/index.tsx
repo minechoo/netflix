@@ -23,7 +23,6 @@ export default Home;
 
 export const getServerSideProps = async () => {
 	const sf = await fetch(requests.sf).then((res) => res.json());
-	console.log(sf);
 
 	return {
 		props: { sf: sf.results },
