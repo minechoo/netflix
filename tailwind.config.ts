@@ -8,7 +8,7 @@ const config: Config = {
 	theme: {
 		extend: {
 			backgroundImage: {
-				gradient1: 'linear-gradient(to-bottom, rgba(20,20,20,0), rgba(20,20,20,1))',
+				gradient1: 'linear-gradient(to bottom, rgba(20,20,20,0), rgba(20,20,20,1))',
 			},
 		},
 	},
