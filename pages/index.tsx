@@ -3,11 +3,26 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import requests from '@/utils/request';
 import Image from 'next/image';
+import { Movie } from '@/types';
+import Banner from '@/components/Banner';
+import Row from '@/components/Row';
 
-const Home: NextPage = (props) => {
-	console.log(props);
+interface Props {
+	original: Movie[];
+	top: Movie[];
+	sf: Movie[];
+	drama: Movie[];
+	fantasy: Movie[];
+	comedy: Movie[];
+	action: Movie[];
+}
+
+//Next 기본으로 제공하는 NextPage타입에는 커스텀 Props타입이 설정되어있지 않기 때문에
+//Generic을 활용해서 Props타입의 인터페이스를 직접 변수로 호출할때 설정
+const Home: NextPage<Props> = ({ original, top, sf, drama, fantasy, comedy, action }: Props) => {
+	//console.log(original);
 	return (
-		<div className='relatvie h-screen bg-gradient-to-b from-[#333] to=[#141414]'>
+		<div className='relatvie h-screen '>
 			<Head>
 				<title>NEXTFLIX</title>
 				<link rel='icon' href='/favicon.ico' />
@@ -15,8 +30,9 @@ const Home: NextPage = (props) => {
 
 			<Header />
 
-			<main>
-				<Image src={`https://image.tmdb.org/t/p/original/${props.top[0].backdrop_path}`} alt='image' width={300} height={200} />
+			<main className='relative lg:space-y-24'>
+				<Banner original={original} />
+				<Row movies={top} title={'Top Rated'} />
 			</main>
 		</div>
 	);
@@ -26,7 +42,8 @@ export default Home;
 
 export const getServerSideProps = async () => {
 	//promise.all() : promise반환함수를 배열에 인수로 넣어서 병렬식으로 해당 promise가 모두 fullfilled 상태가 되야지만 해당 값을 동기적으로 반환
-	const [top, sf, drama, fantasy, comedy, action] = await Promise.all([
+	const [original, top, sf, drama, fantasy, comedy, action] = await Promise.all([
+		fetch(requests.original).then((res) => res.json()),
 		fetch(requests.top).then((res) => res.json()),
 		fetch(requests.sf).then((res) => res.json()),
 		fetch(requests.drama).then((res) => res.json()),
@@ -36,6 +53,14 @@ export const getServerSideProps = async () => {
 	]);
 
 	return {
-		props: { top: top.results, sf: sf.results, drama: drama.results, fantasy: fantasy.results, comedy: comedy.results, action: action.results },
+		props: {
+			original: original.results,
+			top: top.results,
+			sf: sf.results,
+			drama: drama.results,
+			fantasy: fantasy.results,
+			comedy: comedy.results,
+			action: action.results,
+		},
 	};
 };
