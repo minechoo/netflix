@@ -30,7 +30,7 @@ const Home: NextPage<Props> = ({ original, top, sf, drama, fantasy, comedy, acti
 
 			<Header />
 
-			<main className='relative lg:space-y-24'>
+			<main className='relative'>
 				<Banner original={original} />
 				<Row movies={top} title={'Top Rated'} />
 			</main>
