@@ -27,6 +27,7 @@ function Banner({ original }: Props) {
 							priority
 							quality={70}
 							className='object-cover'
+							sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
 						/>
 						<div className='absolute botto-0 left-0 w-full h-full bg-gradient1'></div>
 					</div>
