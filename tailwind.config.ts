@@ -10,6 +10,15 @@ const config: Config = {
 			backgroundImage: {
 				gradient1: 'linear-gradient(to bottom, rgba(20,20,20,0), rgba(20,20,20,1))',
 			},
+			keyframes: {
+				rotation: {
+					'0%': { transform: 'rotate(0deg)' },
+					'100%': { transform: 'rotate(360deg)' },
+				},
+			},
+			animation: {
+				'ani-rotation': 'rotate is linear infinite',
+			},
 		},
 	},
 	plugins: [require('tailwind-scrollbar'), require('tailwind-scrollbar-hide')],
